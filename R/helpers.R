@@ -16,7 +16,7 @@ compute_match_frequency <- function(data,
 
   for (i in seq_len(k)) {
     # 1. random binary assignment as pseudo-treatment
-    data$part_k <- sample(c(0,1), n, replace = TRUE)
+    data$part_k <- sample(c(rep(0, floor(n/2)), rep(1, ceiling(n/2))), n, replace = FALSE)
     # 2. build propensity-score formula by updating one-sided rhs_formula
     ps_formula <- update(rhs_formula, part_k ~ .)
     # 3. run matching
