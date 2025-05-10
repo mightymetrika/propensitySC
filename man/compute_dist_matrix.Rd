@@ -6,6 +6,14 @@
 \usage{
 compute_dist_matrix(x)
 }
+\arguments{
+\item{x}{A numeric vector of length \eqn{n}, e.g. mean propensity scores.}
+}
+\value{
+A numeric \eqn{n \times n} matrix where entry \eqn{[i,j]} is the Manhattan
+distance \eqn{|x[i] - x[j]|}.
+}
 \description{
 Compute pairwise absolute-distance matrix from a numeric vector
 }
+\keyword{internal}

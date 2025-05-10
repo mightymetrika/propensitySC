@@ -19,3 +19,4 @@ list(within, between, overall = between/within)
 \description{
 Compute clustering quality: within-group and between-group metrics
 }
+\keyword{internal}

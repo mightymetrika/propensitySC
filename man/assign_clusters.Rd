@@ -19,3 +19,4 @@ integer vector length n: cluster label (1..g) indicating which anchor
 \description{
 Assign clusters based on match-frequency and tie-break by distance
 }
+\keyword{internal}

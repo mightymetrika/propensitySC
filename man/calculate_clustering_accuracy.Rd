@@ -17,3 +17,4 @@ numeric accuracy score
 \description{
 Calculate clustering accuracy using best label matching
 }
+\keyword{internal}

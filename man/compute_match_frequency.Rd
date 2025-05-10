@@ -9,7 +9,8 @@ compute_match_frequency(
   rhs_formula,
   k = min(100, floor(sqrt(nrow(data)))),
   match_method = "nearest",
-  distance_metric = "logit"
+  distance_metric = "logit",
+  ...
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ compute_match_frequency(
 \item{match_method}{matching method for MatchIt (e.g., "nearest")}
 
 \item{distance_metric}{distance metric for MatchIt (e.g., "logit")}
+
+\item{...}{pass additional arguments to MatchIt::matchit()}
 }
 \value{
 list(freq = n x n match-frequency matrix, ps_list = list of PS numeric vectors)
@@ -29,3 +32,4 @@ list(freq = n x n match-frequency matrix, ps_list = list of PS numeric vectors)
 \description{
 Compute match-frequency matrix and record PS values over k random splits
 }
+\keyword{internal}

@@ -17,3 +17,4 @@ integer vector of anchor indices
 \description{
 Select initial anchors via farthest-first traversal on mean PS
 }
+\keyword{internal}

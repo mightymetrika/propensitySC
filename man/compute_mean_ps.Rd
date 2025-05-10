@@ -6,6 +6,15 @@
 \usage{
 compute_mean_ps(ps_list)
 }
+\arguments{
+\item{ps_list}{A list of numeric vectors, each containing the propensity scores
+for all observations from one matching iteration.}
+}
+\value{
+A numeric vector of length \(n\) giving the mean propensity score for
+each observation (row-wise mean across all iterations).
+}
 \description{
 Compute mean propensity score per observation
 }
+\keyword{internal}

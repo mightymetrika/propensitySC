@@ -2,6 +2,33 @@ test_that("propensity_score_clustering works", {
 
   # Generate data with true underlying clusters
   set.seed(123)
+  # Run clustering
+  result <- propensity_score_clustering(
+    iris,
+    ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width + Species,
+    verbose = FALSE,
+  ) |> suppressWarnings()
+
+  # print(result)
+  #
+  # # Compare with known species
+  # summary(result, true_labels = iris$Species)
+  #
+  # # Visualize clusters
+  # plot(result, which = 1)  # PCA plot
+  # plot(result, which = 2)  # PCA plot
+  # plot(result, which = 3)  # PCA plot
+  # plot(result, which = 4)  # PCA plot
+
+  # Test 1: Check object structure and class
+  expect_s3_class(result, "ps_clustering")
+
+})
+
+test_that("propensity_score_clustering works", {
+
+  # Generate data with true underlying clusters
+  set.seed(123)
   n <- 200
   n_groups <- 4
   group_size <- n/n_groups

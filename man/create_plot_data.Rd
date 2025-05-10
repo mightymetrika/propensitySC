@@ -2,11 +2,30 @@
 % Please edit documentation in R/helpers.R
 \name{create_plot_data}
 \alias{create_plot_data}
-\title{Create plot data for visualization (internal function)}
+\title{Create plot data for visualization of clustering results}
 \usage{
 create_plot_data(data, rhs_formula, cluster_labels, meanPS)
 }
+\arguments{
+\item{data}{A data.frame of the original covariates used for clustering.}
+
+\item{rhs_formula}{A one-sided formula object specifying which covariates
+were used in the propensity‐score model (e.g. \code{~ x1 + x2 + factor1}).}
+
+\item{cluster_labels}{An integer vector or factor of cluster assignments
+for each observation (as returned by \code{propensity_score_clustering()}).}
+
+\item{meanPS}{Numeric vector of mean propensity scores for each observation.}
+}
+\value{
+A list with two elements:
+\describe{
+\item{data}{A data.frame with columns \code{PC1}, \code{PC2}, \code{Cluster} (factor),
+and \code{MeanPS}, ready for plotting.}
+\item{pca_result}{The full \code{prcomp} object, in case you want custom charts.}
+}
+}
 \description{
-Create plot data for visualization (internal function)
+Create plot data for visualization of clustering results
 }
 \keyword{internal}

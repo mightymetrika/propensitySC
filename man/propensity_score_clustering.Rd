@@ -2,7 +2,7 @@
 % Please edit documentation in R/propensity_score_clustering.R
 \name{propensity_score_clustering}
 \alias{propensity_score_clustering}
-\title{Enhanced propensity score clustering}
+\title{Propensity Score Clustering}
 \usage{
 propensity_score_clustering(
   data,
@@ -10,25 +10,63 @@ propensity_score_clustering(
   k = min(100, floor(sqrt(nrow(data)))),
   max_groups = floor(sqrt(nrow(data))),
   min_improve = 0.01,
-  verbose = TRUE
+  verbose = FALSE,
+  ...
 )
 }
 \arguments{
-\item{data}{data.frame of covariates}
+\item{data}{A data frame containing covariates for clustering.}
 
-\item{rhs_formula}{one-sided formula for PS (e.g. ~ X1 + X2 + X3)}
+\item{rhs_formula}{A one-sided formula specifying the right-hand side of the
+propensity score model (e.g., \code{~ X1 + X2 + X3}).}
 
-\item{k}{number of random-matchit iterations}
+\item{k}{Number of random matching iterations (default: \code{min(100, floor(sqrt(nrow(data))))}).}
 
-\item{max_groups}{maximum initial clusters (default = sqrt(n))}
+\item{max_groups}{Maximum number of initial clusters (default: \code{floor(sqrt(nrow(data)))}).}
 
-\item{min_improve}{early stopping threshold on quality drop}
+\item{min_improve}{Early stopping threshold for quality improvement (default: 0.01).}
 
-\item{verbose}{logical, whether to print progress}
+\item{verbose}{Logical indicating whether to print progress messages (default: FALSE).}
+
+\item{...}{Additional arguments passed to MatchIt::matchit()}
 }
 \value{
-ps_clustering object with clustering results
+An object of class \code{ps_clustering} containing:
+\item{cluster_assignments}{Integer vector of cluster assignments for each observation.}
+\item{n_clusters}{Number of clusters found.}
+\item{anchors}{Indices of anchor observations for each cluster.}
+\item{quality_scores}{Matrix of quality metrics for each number of clusters tested.}
+\item{best_score}{The highest quality score achieved.}
+\item{mean_propensity_scores}{Average propensity score for each observation across iterations.}
+\item{match_frequency_matrix}{Matrix of match frequencies between observations.}
+\item{plot_data}{Data frame containing PCA coordinates and cluster assignments for visualization.}
+\item{pca_result}{PCA results used for visualization.}
+\item{data}{Original input data.}
+\item{formula}{Formula used for propensity score modeling.}
 }
 \description{
-Enhanced propensity score clustering
+Performs clustering by iteratively creating propensity scores from random balanced
+binary partitions and building a match frequency matrix. The algorithm randomly
+splits observations into two equal-sized groups, fits propensity score models,
+and records matching patterns across iterations. Cluster anchors are identified
+using farthest-first traversal on mean propensity scores, then observations are
+assigned to clusters based on matching frequency and propensity score distance.
+The number of clusters is determined by optimizing a quality metric that balances
+within-cluster compactness and between-cluster separation.
+}
+\examples{
+# Cluster the iris dataset using all measurements
+result <- propensity_score_clustering(
+  iris[, -5],
+  ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
+  verbose = FALSE
+)
+print(result)
+
+# Compare with known species
+summary(result, true_labels = iris$Species)
+
+# Visualize clusters
+plot(result, which = 1)  # PCA plot
+
 }
